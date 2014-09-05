@@ -31,7 +31,7 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		$scope.currentCard;
 		$scope.triesRemaining = 3;
 		$scope.timer = 0;
-		$scope.totalScore = 0;
+		// $scope.totalScore = 0;
 		$scope.ready = false;
 		$scope.finished = false;
 		var maxScorePerCard;
@@ -44,16 +44,17 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		});
 
 		Score.query(function(scores) {
-			$scope.scores = scores;
+			$scope.highScores = scores;
 			// console.log($scope.scores);
 		});
 
 		$scope.newCard = new Card();
+		$scope.totalScore = new Score({points:0});
 
 		$scope.toggleReady = function() {
 			$scope.ready = $scope.ready ? false : true;
 			getNewCard();
-		}
+		};
 
 		$scope.createCard = function() {
 			$scope.newCard.$save(function(card) {
@@ -61,15 +62,15 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 				// creating new card to clear fields
 				$scope.newCard = new Card;
 				// console.log($scope.cards);
-			})
+			});
 		};
 
 		$scope.deleteCard = function(card) {
 			card.$delete(function() {
 				var position = $scope.deck.indexOf($scope.currentCard);
 				$scope.deck.splice(position, 1); 
-			})
-		}
+			});
+		};
 
 		var getNewCard = function() {
 			$scope.currentCard = $scope.deck[Math.floor(Math.random() * $scope.deck.length)];
@@ -79,7 +80,13 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		var removeCard = function() {
 			var position = $scope.deck.indexOf($scope.currentCard);
 			$scope.deck.splice(position, 1);
-		}
+		};
+
+		var postScore = function() {
+			$scope.totalScore.$save(function() {
+				console.log("Saved!")
+			});
+		};
 
 		$scope.checkAnswer = function(answer) {
 			if (answer === $scope.currentCard.answer) {
@@ -91,6 +98,7 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 				$scope.triesRemaining = 3;
 				if ($scope.deck.length === 0) {
 					$scope.finished = true;
+					postScore();
 				}
 
 			} else {
@@ -124,8 +132,8 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 			}
 
 			var score = maxScorePerCard * multiplierA * multiplierB;
-			$scope.totalScore += score;
-		}
+			$scope.totalScore.points += score;
+		};
 
 
 

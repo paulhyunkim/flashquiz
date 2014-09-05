@@ -30,11 +30,23 @@
 		</div>
 		<h1>You have {{ triesRemaining }} tries remaining.</h1> 
 		<h1>{{ timer | number:1 }} seconds</h1>
-		<h1>Total score: {{ totalScore | number:2 }}/100</h1>
+		<h1>Total score: {{ totalScore.points | number:2 }}/100</h1>
 	</div>
 
 	<div ng-show="finished">
-		You are finished!
+		<h1>You are finished!</h1>
+		<h1>Your total score is {{ totalScore.points | number:2 }} out of 100.</h1>
+
+		<table class="table">
+		  <tr>
+		  	<th>User</th>
+		  	<th>Score</th>
+		  </tr>
+		  <tr ng-repeat="score in highScores">
+		  	
+		  </tr>
+		</table>
+
 	</div>
 	
 
