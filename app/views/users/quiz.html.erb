@@ -13,11 +13,14 @@
 			</div>
 		</div>
 		<div class="col-sm-4">
-			<button type="submit" class="btn btn-primary" ng-click="getNewCard()">Random Card</button>
+			<button class="btn btn-primary" ng-click="getNewCard()">Random Card</button>
 			<button type="submit" class="btn btn-primary" ng-click="checkAnswer(answer)">Check Answer</button>
+			<button class="btn btn-primary" ng-click="startTimer()">Start Timer</button>
+			<button class="btn btn-primary" ng-click="stopTimer()">Stop Timer</button>
 		</div>
 	</div>
 
 	<h1>You have {{ triesRemaining }} tries remaining.</h1> 
+	<h1>{{ timer | number:1 }} seconds</h1>
 
 </div>

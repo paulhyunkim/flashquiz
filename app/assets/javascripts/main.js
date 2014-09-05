@@ -30,6 +30,8 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		$scope.name = "Paul";
 		$scope.currentCard;
 		$scope.triesRemaining = 3;
+		$scope.timer = 0;
+		var currentTimeout;
 
 		Card.query(function(cards) {
 			$scope.cards = cards;
@@ -65,5 +67,17 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 				$scope.triesRemaining--;
 			}
 		};
+
+		var tick = function() {
+			$scope.timer += 0.1;
+			currentTimeout = $timeout(tick, 100);
+		}
+
+		$scope.startTimer = function() {
+			$timeout(tick, 100);
+		}
+		$scope.stopTimer = function() {
+			$timeout.cancel(currentTimeout);
+		}
 
 	}]);
