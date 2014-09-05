@@ -64,6 +64,13 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 			})
 		};
 
+		$scope.deleteCard = function(card) {
+			card.$delete(function() {
+				var position = $scope.deck.indexOf($scope.currentCard);
+				$scope.deck.splice(position, 1); 
+			})
+		}
+
 		var getNewCard = function() {
 			$scope.currentCard = $scope.deck[Math.floor(Math.random() * $scope.deck.length)];
 			startTimer();
