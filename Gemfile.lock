@@ -29,6 +29,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    angular-ui-bootstrap-rails (0.11.0)
     angularjs-rails (1.2.21)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
@@ -123,6 +124,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers
+  angular-ui-bootstrap-rails
   angularjs-rails
   bcrypt (~> 3.1.7)
   bootstrap-sass

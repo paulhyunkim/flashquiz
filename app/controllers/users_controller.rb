@@ -12,6 +12,9 @@ class UsersController < ApplicationController
 	def quiz
 	end
 
+	def practice
+	end
+
 	def new
 		@user = User.new
 	end

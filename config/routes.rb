@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   post 'user/postscore', to: 'users#post_score'
   post 'user/createcard', to: 'users#create_card'
 
-  get 'user/deck', to: 'users#new_deck'
-  post 'user/deck', to: 'users#create_deck'
+  get 'practice', to: 'users#practice'
+
+  get 'deck', to: 'decks#index'
+  post 'deck', to: 'decks#create'
 
 
   get 'cards', to: 'cards#index'

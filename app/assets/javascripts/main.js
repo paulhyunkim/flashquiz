@@ -1,4 +1,4 @@
-var app = angular.module('FlashQuizApp', ['ngResource']);
+var app = angular.module('FlashQuizApp', ['ngResource', 'ui.bootstrap']);
 
 app.config(['$httpProvider', function($httpProvider) {
 	var authToken = angular.element('meta[name=\"csrf-token\"]').attr('content');
@@ -180,16 +180,18 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		var tick = function() {
 			$scope.timer += 0.1;
 			currentTimeout = $timeout(tick, 100);
-		}
+		};
 		var startTimer = function() {
 			$timeout(tick, 100);
-		}
+		};
 		var stopTimer = function() {
 			$timeout.cancel(currentTimeout);
-		}
+		};
 		var resetTimer = function() {
 			$timeout.cancel(currentTimeout);
 			$scope.timer = 0;
-		}
+		};
+
+
 
 	}]);
