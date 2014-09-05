@@ -29,6 +29,7 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 
 		$scope.name = "Paul";
 		$scope.currentCard;
+		$scope.triesRemaining = 3;
 
 		Card.query(function(cards) {
 			$scope.cards = cards;
@@ -49,10 +50,20 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 				$scope.newCard = new Card;
 				// console.log($scope.cards);
 			})
-		}
+		};
 
 		$scope.getNewCard = function() {
 			$scope.currentCard = $scope.cards[Math.floor(Math.random() * $scope.cards.length)];
-		}
+		};
+
+		$scope.checkAnswer = function(answer) {
+			if (answer === $scope.currentCard.answer) {
+				console.log("Correct!");
+				$scope.triesRemaining = 3;
+			} else {
+				console.log("Sorry. Try again.");
+				$scope.triesRemaining--;
+			}
+		};
 
 	}]);
