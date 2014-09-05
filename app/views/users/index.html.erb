@@ -17,7 +17,12 @@
 	</div>
 
 	<h1>Your Cards</h1>
-	<div class="row" ng-repeat="card in deck">
+	
+	<div class="form-group">
+		<input type="text" ng-model="searchTerm" class="form-control" placeholder="Search for Card">
+	</div>
+
+	<div class="row" ng-repeat="card in deck | filter:searchTerm">
 		<div class="col-sm-8">
 			<div class="panel panel-default" >
 			  <div class="panel-heading">
