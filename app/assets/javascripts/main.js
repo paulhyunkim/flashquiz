@@ -11,8 +11,8 @@ app.config(['$httpProvider', function($httpProvider) {
 }]);
 
 app.factory('Card', ['$resource', function($resource) {
-	return $resource('/cards',
-		{ },
+	return $resource('/cards/:id',
+		{ id: '@id' },
 		{ }
 	);
 }]);
