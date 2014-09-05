@@ -44,12 +44,11 @@
 		  	<th>User</th>
 		  	<th>Score</th>
 		  </tr>
-		  <tr ng-repeat="score in highScores">
+		  <tr ng-repeat="score in highScores | orderBy:'points':true">
 		  	<td>{{ score.username }}</td>
 		  	<td>{{ score.points }}</td>
 		  </tr>
 		</table>
-
 	</div>
 	
 

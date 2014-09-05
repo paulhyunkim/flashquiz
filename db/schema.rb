@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140905203053) do
   end
 
   create_table "scores", force: true do |t|
-    t.string   "points",     default: "0", null: false
+    t.float    "points",     default: 0.0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"

@@ -61,10 +61,11 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		CurrentUser.get(function(user) {
 			$scope.currentUser = user;
 			console.log($scope.currentUser);
+			$scope.totalScore = new Score({ points:0, username: $scope.currentUser.username });
 		});
 
 		$scope.newCard = new Card();
-		$scope.totalScore = new Score({ points:0 });
+		
 
 		$scope.toggleReady = function() {
 			$scope.ready = $scope.ready ? false : true;
@@ -111,6 +112,7 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 			// });
 			$scope.currentUser.$postScore($scope.totalScore);
 			$scope.highScores.push($scope.totalScore);
+			console.log($scope.highScores);
 		};
 
 		$scope.checkAnswer = function(answer) {
