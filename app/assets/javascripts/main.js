@@ -10,6 +10,20 @@ app.config(['$httpProvider', function($httpProvider) {
 	defaults.common['Accept'] = 'application/json';
 }]);
 
+app.factory('Card', ['$resource', function($resource) {
+	return $resource('/cards',
+		{ }
+		{ }
+	);
+}]);
+
+app.factory('Score', ['$resource', function($resource) {
+	return $resource('/scores',
+		{ }
+		{ }
+	);
+}]);
+
 app.controller('MainController', ['$scope', '$timeout', '$http',
 	function($scope, $timeout, $http) {
 
