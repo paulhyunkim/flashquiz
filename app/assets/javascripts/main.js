@@ -61,7 +61,7 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		});
 
 		$scope.newCard = new Card();
-		$scope.totalScore = new Score({points:0});
+		$scope.totalScore = new Score({ points:0 });
 
 		$scope.toggleReady = function() {
 			$scope.ready = $scope.ready ? false : true;
