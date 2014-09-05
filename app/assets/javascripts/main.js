@@ -24,9 +24,19 @@ app.factory('Score', ['$resource', function($resource) {
 	);
 }]);
 
-app.controller('MainController', ['$scope', '$timeout', '$http',
-	function($scope, $timeout, $http) {
+app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score',
+	function($scope, $timeout, $http, Card, Score) {
 
 		$scope.name = "Paul";
+
+		Card.query(function(cards) {
+			$scope.cards = cards;
+			console.log($scope.cards);
+		})
+
+		Score.query(function(scores) {
+			$scope.scores = scores;
+			console.log($scope.scores);
+		})
 
 	}]);
