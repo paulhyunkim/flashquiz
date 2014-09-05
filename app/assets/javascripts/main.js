@@ -36,8 +36,8 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		var currentTimeout;
 
 		Card.query(function(cards) {
-			$scope.cards = cards;
-			maxScorePerCard = 100 / $scope.cards.length;
+			$scope.deck = cards;
+			maxScorePerCard = 100 / $scope.deck.length;
 			// console.log($scope.cards);
 		});
 
@@ -50,21 +50,30 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 
 		$scope.createCard = function() {
 			$scope.newCard.$save(function(card) {
-				$scope.cards.push(card);
+				$scope.deck.push(card);
 				// creating new card to clear fields
 				$scope.newCard = new Card;
 				// console.log($scope.cards);
 			})
 		};
 
-		$scope.getNewCard = function() {
-			$scope.currentCard = $scope.cards[Math.floor(Math.random() * $scope.cards.length)];
+		var getNewCard = function() {
+			$scope.currentCard = $scope.deck[Math.floor(Math.random() * $scope.deck.length)];
+			startTimer();
 		};
+
+		var removeCard = function() {
+			var position = $scope.deck.indexOf($scope.currentCard);
+			$scope.deck.splice(position, 1);
+		}
 
 		$scope.checkAnswer = function(answer) {
 			if (answer === $scope.currentCard.answer) {
 				// console.log("Correct!");
 				addScore();
+				removeCard();
+				getNewCard();
+				resetTimer();
 				$scope.triesRemaining = 3;
 			} else {
 				// console.log("Sorry. Try again.");
@@ -98,8 +107,6 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 
 			var score = maxScorePerCard * multiplierA * multiplierB;
 			$scope.totalScore += score;
-
-			console.log("You earned " + score + " points. " + multiplierA + multiplierB);
 		}
 
 
@@ -109,11 +116,15 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 			$scope.timer += 0.1;
 			currentTimeout = $timeout(tick, 100);
 		}
-		$scope.startTimer = function() {
+		var startTimer = function() {
 			$timeout(tick, 100);
 		}
-		$scope.stopTimer = function() {
+		var stopTimer = function() {
 			$timeout.cancel(currentTimeout);
+		}
+		var resetTimer = function() {
+			$timeout.cancel(currentTimeout);
+			$scope.timer = 0;
 		}
 
 	}]);
