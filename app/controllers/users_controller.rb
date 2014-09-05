@@ -20,6 +20,16 @@ class UsersController < ApplicationController
 			render 'new'
 		end
 	end
+
+  def create_card(question, answer)
+  	Card.create(user_id: current_user.id, question: question, answer: answer)
+  	redirect_to action: :index
+  end
+
+  def post_score
+  	Score.create(user_id: current_user.id, points: params[:points], username: current_user.username)
+  	redirect_to action: :index
+  end
 	
 	protected
 

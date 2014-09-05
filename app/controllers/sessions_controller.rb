@@ -5,8 +5,7 @@ class SessionsController < ApplicationController
 
 	def create 
 		@user = User.find_by(username: params[:session][:username])
-		puts @user
-		puts params[:session][:password]
+	
 		if @user == nil || !@user.authenticate(params[:session][:password])
 			render 'new'
 		else

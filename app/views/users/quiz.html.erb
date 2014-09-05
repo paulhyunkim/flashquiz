@@ -22,10 +22,7 @@
 				</div>
 			</div>
 			<div class="col-sm-4">
-				<button class="btn btn-primary" ng-click="getNewCard()">Random Card</button>
 				<button type="submit" class="btn btn-primary" ng-click="checkAnswer(answer)">Check Answer</button>
-				<button class="btn btn-primary" ng-click="startTimer()">Start Timer</button>
-				<button class="btn btn-primary" ng-click="stopTimer()">Stop Timer</button>
 			</div>
 		</div>
 		<h1>You have {{ triesRemaining }} tries remaining.</h1> 
@@ -43,7 +40,7 @@
 		  	<th>Score</th>
 		  </tr>
 		  <tr ng-repeat="score in highScores">
-		  	<td></td>
+		  	<td>{{ score.username }}</td>
 		  	<td>{{ score.points }}</td>
 		  </tr>
 		</table>

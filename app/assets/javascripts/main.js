@@ -27,7 +27,10 @@ app.factory('Score', ['$resource', function($resource) {
 app.factory('CurrentUser', ['$resource', function($resource) {
 	return $resource('/currentuser',
 		{ },
-		{ }
+		{ 
+			'addCard': { method: 'POST', url: 'user/addcard' },
+			'postScore': { method: 'POST', url: 'user/postscore' }
+		}
 	);
 }]);
 
@@ -95,9 +98,11 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		};
 
 		var postScore = function() {
-			$scope.totalScore.$save(function() {
-				console.log("Saved!")
-			});
+			// $scope.totalScore.$save(function() {
+			// 	console.log("Saved!")
+			// });
+			$scope.currentUser.$postScore($scope.totalScore);
+			$scope.highScores.push($scope.totalScore);
 		};
 
 		$scope.checkAnswer = function(answer) {
@@ -114,8 +119,18 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 				}
 
 			} else {
-				// console.log("Sorry. Try again.");
 				$scope.triesRemaining--;
+				if ($scope.triesRemaining === 0) {
+					addScore();
+					removeCard();
+					getNewCard();
+					resetTimer();
+					$scope.triesRemaining = 3;
+					if ($scope.deck.length === 0) {
+						$scope.finished = true;
+						postScore();
+					}
+				}
 			}
 		};
 
