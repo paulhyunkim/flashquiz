@@ -20,4 +20,7 @@ class User < ActiveRecord::Base
 		end
   end
 
+  def create_card(card)
+  	Card.create()
+  end
 end
