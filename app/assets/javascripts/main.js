@@ -31,10 +31,13 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		$scope.currentCard;
 		$scope.triesRemaining = 3;
 		$scope.timer = 0;
+		$scope.totalScore = 0;
+		var maxScorePerCard;
 		var currentTimeout;
 
 		Card.query(function(cards) {
 			$scope.cards = cards;
+			maxScorePerCard = 100 / $scope.cards.length;
 			// console.log($scope.cards);
 		});
 
@@ -60,19 +63,52 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 
 		$scope.checkAnswer = function(answer) {
 			if (answer === $scope.currentCard.answer) {
-				console.log("Correct!");
+				// console.log("Correct!");
+				addScore();
 				$scope.triesRemaining = 3;
 			} else {
-				console.log("Sorry. Try again.");
+				// console.log("Sorry. Try again.");
 				$scope.triesRemaining--;
 			}
 		};
 
+
+		var addScore = function() {
+			var multiplierA, multiplierB;
+
+			if ($scope.timer <= 10) {
+				multiplierA = 1;
+			} else if ($scope.timer <= 20) {
+				multiplierA = 0.9;
+			} else if ($scope.timer <= 30) {
+				multiplierA = 0.8;
+			} else {
+				multiplierA = 0.75;
+			}
+
+			if ($scope.triesRemaining === 3) {
+				multiplierB = 1;
+			} else if ($scope.triesRemaining === 2) {
+				multiplierB = 0.75;
+			} else if ($scope.triesRemaining === 1) {
+				multiplierB = 0.5;
+			} else {
+				multiplierB = 0;
+			}
+
+			var score = maxScorePerCard * multiplierA * multiplierB;
+			$scope.totalScore += score;
+
+			console.log("You earned " + score + " points. " + multiplierA + multiplierB);
+		}
+
+
+
+		// TIMER
 		var tick = function() {
 			$scope.timer += 0.1;
 			currentTimeout = $timeout(tick, 100);
 		}
-
 		$scope.startTimer = function() {
 			$timeout(tick, 100);
 		}
