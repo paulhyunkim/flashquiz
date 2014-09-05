@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   root 'users#index'
-  get 'users/quiz', to: 'users#quiz'
+  get 'quiz', to: 'users#quiz'
 
   get 'cards', to: 'cards#index'
   post 'cards', to: 'cards#create'
