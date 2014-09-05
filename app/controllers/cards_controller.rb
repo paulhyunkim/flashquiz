@@ -13,20 +13,24 @@ class CardsController < ApplicationController
 			respond_to do |format|
 			format.html { }
       format.json { render json: @card, status: :created }
-    end
-  else
-    respond_to do |format|
-      format.html { }
-      format.json { render json: @card.errors, status: :unprocessable_entity }
-    end
+	    end
+	  else
+	    respond_to do |format|
+	      format.html { }
+	      format.json { render json: @card.errors, status: :unprocessable_entity }
+	    end
+	  end
   end
-
-	end
 
 	def edit
 	end
 
 	def destroy
+		Card.find(params[:id]).destroy
+		respond_to do |format|
+			format.html {}
+			format.json { render json: { head: :ok } }
+		end
 	end
 
 	protected
