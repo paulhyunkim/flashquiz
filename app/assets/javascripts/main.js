@@ -33,6 +33,7 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		$scope.timer = 0;
 		$scope.totalScore = 0;
 		$scope.ready = false;
+		$scope.finished = false;
 		var maxScorePerCard;
 		var currentTimeout;
 
@@ -81,6 +82,10 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 				getNewCard();
 				resetTimer();
 				$scope.triesRemaining = 3;
+				if ($scope.deck.length === 0) {
+					$scope.finished = true;
+				}
+
 			} else {
 				// console.log("Sorry. Try again.");
 				$scope.triesRemaining--;

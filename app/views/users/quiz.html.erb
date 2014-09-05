@@ -3,11 +3,13 @@
 	<h1>Quiz</h1>
 
 	<div class="row" ng-hide="ready">
-		<h2>Are you ready to take the quiz?</h2>
-		<button class="btn btn-primary" ng-click="toggleReady()">Yes</button>
+		<div class="col-sm-12">
+			<h2>Are you ready to take the quiz?</h2>
+			<button class="btn btn-primary" ng-click="toggleReady()">Yes</button>
+		</div>
 	</div>
 	
-	<div id="quiz" ng-show="ready">
+	<div id="quiz" ng-show="ready && !finished">
 		<div class="row">
 			<div class="col-sm-8">
 				<div class="panel panel-default">
@@ -31,6 +33,9 @@
 		<h1>Total score: {{ totalScore | number:2 }}/100</h1>
 	</div>
 
+	<div ng-show="finished">
+		You are finished!
+	</div>
 	
 
 </div>
