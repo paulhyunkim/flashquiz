@@ -1,9 +1,15 @@
 class UsersController < ApplicationController
+	respond_to :json, :html
 
 	def index
+		respond_with current_user
 	end
 
 	def quiz
+	end
+
+	def new
+		@user = User.new
 	end
 
 	def create

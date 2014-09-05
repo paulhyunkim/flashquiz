@@ -1,0 +1,16 @@
+<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4 border">
+
+				<%= form_for :session, :url => sessions_path do |f| %>
+
+					<h2>Email: <%= f.text_field :email, class: "form-control" %></h2>
+					<h2>Password: <%= f.password_field :password, class: "form-control" %></h2>
+					<%= f.submit "Sign in!", class: "btn btn-default" %>
+				<% end %>
+			<%= link_to "Sign up!", new_user_path, class: "btn btn-default" %>
+			<br>
+			<%= flash[:error] %>
+			</div>
+			<div class="col-md-4"></div>
+</div>

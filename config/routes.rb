@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
 
   root 'users#index'
+  get 'currentuser', to: 'users#index'
   get 'quiz', to: 'users#quiz'
+  get 'login', to: 'sessions#new'
+  get 'signup', to: 'users#new', as: 'users'
+  post 'signup', to: "users#create"
 
   get 'cards', to: 'cards#index'
   post 'cards', to: 'cards#create'

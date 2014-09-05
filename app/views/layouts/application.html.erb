@@ -17,8 +17,14 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
+
         <li><a href="/">Create Cards</a></li>
         <li><a href="/quiz">Quiz Time</a></li>
+        <li><a href="/login">Log In</a></li>
+        <li><a href="/signup">Sign Up</a></li>
+        <% if false %>
+        <li><%= link_to "Log out!", session_path(:remember_token), :method => :delete %></li>
+        <% end %>
       </ul>
     </div>
   </div>
