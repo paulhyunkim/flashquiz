@@ -24,8 +24,15 @@ app.factory('Score', ['$resource', function($resource) {
 	);
 }]);
 
-app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score',
-	function($scope, $timeout, $http, Card, Score) {
+app.factory('CurrentUser', ['$resource', function($resource) {
+	return $resource('/currentuser',
+		{ },
+		{ }
+	);
+}]);
+
+app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score', 'CurrentUser',
+	function($scope, $timeout, $http, Card, Score, CurrentUser) {
 
 		$scope.name = "Paul";
 		$scope.currentCard;
@@ -46,6 +53,11 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		Score.query(function(scores) {
 			$scope.highScores = scores;
 			// console.log($scope.scores);
+		});
+
+		CurrentUser.get(function(user) {
+			$scope.currentUser = user;
+			console.log($scope.currentUser);
 		});
 
 		$scope.newCard = new Card();

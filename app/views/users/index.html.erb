@@ -1,6 +1,8 @@
 <div class="container-fluid">
-
-	<h1>Hello <%= current_user %></h1>
+	
+	<% if current_user %>
+		<h1>Hello {{ currentUser.username }}</h1>
+	<% end %>
 
 	<h1>Create a Card</h1>
 	<div class="row">

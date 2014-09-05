@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'currentuser', to: 'users#index'
   get 'quiz', to: 'users#quiz'
   get 'login', to: 'sessions#new'
+  post 'login', to: 'sessions#create'
   get 'signup', to: 'users#new', as: 'users'
   post 'signup', to: "users#create"
 
