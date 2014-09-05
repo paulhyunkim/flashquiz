@@ -1,15 +1,20 @@
+<div class="container-fluid">
 <div class="row">
-	<div class="col-md-4"></div>
-	<div class="col-md-4 border tall">
+	<div class="col-sm-5">
+
 
 		<%= form_for @user do |f| %>
-
-			<h2>Name: <%= f.text_field :username, class: "form-control" %></h2>
-			<h2>Password: <%= f.password_field :password, class: "form-control" %></h2>
-			<%= f.submit "Sign up!", class: "btn btn-default" %>
+			<div class="form-group">
+		    <label>Username</label>
+		    <%= f.text_field :username, class: "form-control" %>
+		  </div>
+		  <div class="form-group">
+		    <label>Password</label>
+		    <%= f.password_field :password, class: "form-control" %>
+		  </div>
+		 	<%= f.submit "Sign up!", class: "btn btn-default" %>	
 		<% end %>
-	<%= link_to "Sign in!", login_path, class: "btn btn-default" %>
 
 	</div>
-	<div class="col-md-4"></div>
+</div>
 </div>

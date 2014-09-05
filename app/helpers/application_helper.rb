@@ -9,8 +9,8 @@ module ApplicationHelper
 	end
 
 	def authenticate_user
-		if !self.current_user
-			redirect_to new_session_path
+		if !current_user
+			redirect_to welcome_path
 		end
 	end
 	

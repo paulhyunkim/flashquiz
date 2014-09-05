@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
 	respond_to :json, :html
+	before_action :authenticate_user, :except => [:new, :create, :welcome]
 
 	def index
 		respond_with current_user
+	end
+
+	def welcome
 	end
 
 	def quiz

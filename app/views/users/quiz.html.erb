@@ -12,17 +12,22 @@
 	<div id="quiz" ng-show="ready && !finished">
 		<div class="row">
 			<div class="col-sm-8">
-				<div class="panel panel-default">
-				  <div class="panel-heading">
-				  	<h3 class="panel-title">{{ currentCard.question }}</h3>
-			  	</div>
-				  <div class="panel-body">
-				    <input ng-model="answer" class="form-control" placeholder="Enter your answer">
-				  </div>
-				</div>
-			</div>
-			<div class="col-sm-4">
-				<button type="submit" class="btn btn-primary" ng-click="checkAnswer(answer)">Check Answer</button>
+			<form role="form">
+			  <div class="form-group">
+
+			  	<div class="panel panel-default">
+					  <div class="panel-heading">
+					  	<h3 class="panel-title">{{ currentCard.question }}</h3>
+				  	</div>
+					  <div class="panel-body">
+					    <input ng-model="answer" class="form-control" placeholder="Enter your answer">
+					  </div>
+					</div>
+
+			  <button type="submit" class="btn btn-default" ng-click="checkAnswer(answer)">Submit</button>
+			  </div>
+			</form>
+
 			</div>
 		</div>
 		<h1>You have {{ triesRemaining }} tries remaining.</h1> 
