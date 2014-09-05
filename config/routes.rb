@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get 'deck', to: 'decks#index'
   post 'deck', to: 'decks#create'
+  get 'deck/:id', to: 'decks#show'
+  
 
 
   get 'cards', to: 'cards#index'
