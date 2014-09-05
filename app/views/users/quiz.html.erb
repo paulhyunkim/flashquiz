@@ -43,10 +43,12 @@
 		  <tr>
 		  	<th>User</th>
 		  	<th>Score</th>
+		  	<th>Date</th>
 		  </tr>
 		  <tr ng-repeat="score in highScores | orderBy:'points':true | limitTo: 10">
 		  	<td>{{ score.username }}</td>
-		  	<td>{{ score.points }}</td>
+		  	<td>{{ score.points | number: 2 }}</td>
+		  	<td>{{ score.created_at }}</td>
 		  </tr>
 		</table>
 	</div>
