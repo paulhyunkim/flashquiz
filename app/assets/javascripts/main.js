@@ -32,6 +32,7 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		$scope.triesRemaining = 3;
 		$scope.timer = 0;
 		$scope.totalScore = 0;
+		$scope.ready = false;
 		var maxScorePerCard;
 		var currentTimeout;
 
@@ -47,6 +48,11 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		});
 
 		$scope.newCard = new Card();
+
+		$scope.toggleReady = function() {
+			$scope.ready = $scope.ready ? false : true;
+			getNewCard();
+		}
 
 		$scope.createCard = function() {
 			$scope.newCard.$save(function(card) {
