@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
   root 'users#index'
+  get 'users/quiz', to: 'users#quiz'
 
   get 'cards', to: 'cards#index'
   post 'cards', to: 'cards#create'
@@ -9,5 +10,5 @@ Rails.application.routes.draw do
 
   get 'scores', to: 'scores#index'
   post 'scores', to: 'scores#create'
-  
+
 end
