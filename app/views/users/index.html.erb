@@ -1,7 +1,15 @@
 <div ng-app="FlashQuizApp" ng-controller="MainController">
 
 
-Hello {{ name }}
+	<div class="panel panel-default">
+	  <div class="panel-heading">
+	  	<input ng-model="newCard.question" class="form-control" placeholder="Enter question"></div>
+	  <div class="panel-body">
+	    <input ng-model="newCard.answer" class="form-control" placeholder="Enter answer">
+	  </div>
+	</div>
+	<button type="submit" class="btn btn-default" ng-click="createCard()">Create Card</button>
+
 	
 
 </div>
