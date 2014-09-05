@@ -12,14 +12,14 @@ app.config(['$httpProvider', function($httpProvider) {
 
 app.factory('Card', ['$resource', function($resource) {
 	return $resource('/cards',
-		{ }
+		{ },
 		{ }
 	);
 }]);
 
 app.factory('Score', ['$resource', function($resource) {
 	return $resource('/scores',
-		{ }
+		{ },
 		{ }
 	);
 }]);
