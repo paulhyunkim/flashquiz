@@ -16,10 +16,10 @@
 </div>
 </div>
 
-<div class="row">
 <h1>Your Cards</h1>
-<div class="col-sm-8">
-	<div ng-repeat="card in cards">
+<div class="row" ng-repeat="card in cards">
+
+	<div class="col-sm-8">
 		<div class="panel panel-default" >
 		  <div class="panel-heading">
 		    <h3 class="panel-title">{{ card.question }}</h3>
@@ -29,13 +29,9 @@
 		  </div>
 		</div>
 	</div>
-</div>
-<div class="col-sm-4">
-	<button type="button" class="btn btn-success">Edit Card</button><br>
-	<button type="button" class="btn btn-danger">Delete Card</button>
-</div>
-</div>
-
+	<div class="col-sm-4">
+		<button type="button" class="btn btn-success">Edit Card</button><br><br>
+		<button type="button" class="btn btn-danger">Delete Card</button>
+	</div>
 	
-
 </div>

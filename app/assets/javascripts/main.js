@@ -31,12 +31,12 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 
 		Card.query(function(cards) {
 			$scope.cards = cards;
-			console.log($scope.cards);
+			// console.log($scope.cards);
 		});
 
 		Score.query(function(scores) {
 			$scope.scores = scores;
-			console.log($scope.scores);
+			// console.log($scope.scores);
 		});
 
 		$scope.newCard = new Card();
@@ -46,7 +46,7 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 				$scope.cards.push(card);
 				// creating new card to clear fields
 				$scope.newCard = new Card;
-				console.log($scope.cards);
+				// console.log($scope.cards);
 			})
 		}
 
