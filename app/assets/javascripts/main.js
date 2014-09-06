@@ -11,8 +11,24 @@ app.config(['$httpProvider', function($httpProvider) {
 }]);
 
 app.factory('Card', ['$resource', function($resource) {
-	return $resource('/cards/:id',
+	return $resource('/decks/:deckId/cards/:id',
+		{ deckId: '@deckId',
+			id: '@id'
+		},
+		{ }
+	);
+}]);
+
+app.factory('Deck', ['$resource', function($resource) {
+	return $resource('/decks/:id',
 		{ id: '@id' },
+		{ }
+	);
+}]);
+
+app.factory('PublicDeck', ['$resource', function($resource) {
+	return $resource('/publicdecks/',
+		{ },
 		{ }
 	);
 }]);
@@ -34,8 +50,8 @@ app.factory('CurrentUser', ['$resource', function($resource) {
 	);
 }]);
 
-app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score', 'CurrentUser',
-	function($scope, $timeout, $http, Card, Score, CurrentUser) {
+app.controller('MainController', ['$scope', '$timeout', '$http', '$location', 'Card', 'Score', 'CurrentUser', 'Deck', 'PublicDeck',
+	function($scope, $timeout, $http, $location, Card, Score, CurrentUser, Deck, PublicDeck) {
 
 		$scope.name = "Paul";
 		$scope.currentCard;
@@ -47,10 +63,27 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		var maxScorePerCard;
 		var currentTimeout;
 
-		Card.query(function(cards) {
+		// NOT FULLPROOF!! 
+		var deckId = $location.absUrl().split('/').pop();
+
+		Card.query({ deckId:deckId }, function(cards) {
 			$scope.deck = cards;
 			maxScorePerCard = 100 / $scope.deck.length;
-			// console.log($scope.cards);
+			console.log($scope.deck);
+		});
+
+		Deck.query(function(decks) {
+			$scope.decks = decks;
+			console.log("XXXXXX");
+			console.log($scope.decks);
+		});
+
+		
+		PublicDeck.query(function(decks) {
+			$scope.publicDecks = decks;
+			
+			console.log($scope.publicDecks);
+			// $scope.totalScore = new Score({ points:0, username: $scope.currentUser.username });
 		});
 
 		Score.query(function(scores) {
@@ -64,7 +97,14 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 			$scope.totalScore = new Score({ points:0, username: $scope.currentUser.username });
 		});
 
-		$scope.newCard = new Card();
+		
+		$scope.newDeck = new Deck();
+		// $scope.currentDeck = $scope.decks;
+		$scope.newCard = new Card({deckId:deckId});
+
+		
+
+		
 		
 
 		$scope.toggleReady = function() {
@@ -72,19 +112,36 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 			getNewCard();
 		};
 
+		$scope.createDeck = function() {
+			$scope.newDeck.$save(function(deck) {
+				$scope.decks.push(deck);
+				$scope.newDeck = new Deck;
+			});
+		};
+
 		$scope.createCard = function() {
-			$scope.newCard.$save(function(card) {
+			$scope.newCard.$save(
+				function(card) {
 				$scope.deck.push(card);
-				// creating new card to clear fields
-				$scope.newCard = new Card;
-				// console.log($scope.cards);
+				$scope.newCard = new Card({deckId:deckId});
 			});
 		};
 
 		$scope.deleteCard = function(card) {
-			card.$delete(function() {
-				var position = $scope.deck.indexOf($scope.currentCard);
-				$scope.deck.splice(position, 1); 
+			card.$delete({deckId:deckId, id: card.id}, function() {
+				var position = $scope.deck.indexOf(card);
+				console.log($scope.deck);
+				$scope.deck.splice(position, 1);
+				console.log($scope.deck);
+			});
+		};
+
+		$scope.deleteDeck = function(deck) {
+			deck.$delete({id:deck.id}, function() {
+				var position = $scope.decks.indexOf(deck);
+				console.log($scope.decks);
+				$scope.decks.splice(position, 1);
+				console.log($scope.decks);
 			});
 		};
 
@@ -107,12 +164,13 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 		};
 
 		var postScore = function() {
-			// $scope.totalScore.$save(function() {
-			// 	console.log("Saved!")
-			// });
-			$scope.currentUser.$postScore($scope.totalScore);
-			$scope.highScores.push($scope.totalScore);
-			console.log($scope.highScores);
+			$scope.totalScore.$save(function() {
+				console.log("Saved!");
+				$scope.highScores.push($scope.totalScore);
+				console.log($scope.highScores);
+			});
+			// $scope.currentUser.$postScore($scope.totalScore);
+			
 		};
 
 		$scope.checkAnswer = function(answer) {
@@ -173,8 +231,6 @@ app.controller('MainController', ['$scope', '$timeout', '$http', 'Card', 'Score'
 			var score = maxScorePerCard * multiplierA * multiplierB;
 			$scope.totalScore.points += score;
 		};
-
-
 
 		// TIMER
 		var tick = function() {

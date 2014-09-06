@@ -19,9 +19,10 @@ ActiveRecord::Schema.define(version: 20140905220425) do
   create_table "cards", force: true do |t|
     t.string   "question"
     t.string   "answer"
+    t.integer  "user_id"
+    t.integer  "deck_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
   end
 
   create_table "decks", force: true do |t|
@@ -33,10 +34,11 @@ ActiveRecord::Schema.define(version: 20140905220425) do
 
   create_table "scores", force: true do |t|
     t.float    "points",     default: 0.0, null: false
+    t.integer  "user_id"
+    t.integer  "deck_id"
+    t.string   "username"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
-    t.string   "username"
   end
 
   create_table "users", force: true do |t|

@@ -20,5 +20,8 @@ Multiplier for # of attempts:
 * 3: .5
 
 
+There is a test seed file.
+
 `rake db:create`
 `rake db:migrate`
+`rake db:seed`
