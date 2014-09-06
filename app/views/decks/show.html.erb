@@ -1,11 +1,11 @@
 <div class="container-fluid">	
-
+	
+	<h1>{{ currentDeck.name }}</h1>
 	<h1>Create a Card</h1>
 	<div class="row">
 		<div class="col-sm-8">
 			<form role="form">
 			  <div class="form-group">
-
 			  	<div class="panel panel-default">
 					  <div class="panel-heading">
 					  	<input ng-model="newCard.question" class="form-control" placeholder="Enter question">
@@ -14,20 +14,24 @@
 					    <input ng-model="newCard.answer" class="form-control" placeholder="Enter answer">
 					  </div>
 					</div>
-					<button type="submit" class="btn btn-primary" ng-click="createCard()">Create Card</button>
-			  
+					<button type="submit" class="btn btn-primary" ng-click="createCard()">Create Card</button>		  
 			  </div>
 			</form>
 
 		</div>
 	</div>
 
-
 	<h1>Your Cards</h1>
+
 	<div class="row">
 		<div class="col-sm-12">
-			<ul class="card-grid">
-				<li class="card" ng-repeat="card in deck | filter:searchTerm | orderBy:'created_at':true">
+
+			<div class="form-group">
+				<input type="text" ng-model="searchTerm" class="form-control search" placeholder="Search for Deck">
+			</div>
+
+			<ul class="grid">
+				<li class="unit" ng-repeat="card in deck | filter:searchTerm | orderBy:'created_at':true">
 					<div class="panel panel-default">
 					  <div class="panel-heading">
 					    <h3 class="panel-title">{{ card.question }}</h3>
@@ -35,7 +39,10 @@
 					  <div class="panel-body">
 					    {{ card.answer }}
 					  </div>
+					  <button type="button" class="btn btn-success">Edit Card</button>
+						<button type="button" class="btn btn-danger" ng-click="deleteCard(card)">Delete Card</button>
 					</div>
+					
 				</li>
 			</ul>
 		</div>
